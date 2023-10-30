@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         res.status(201).json({ message: 'Team data saved successfully' });
     } catch (error) {
         console.error('Error saving team data:', error);
-        res.status(500).json({ error: 'Error saving team data' });
+        res.status(500).json({ error: error });
     }
 });
 

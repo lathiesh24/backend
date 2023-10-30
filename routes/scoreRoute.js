@@ -10,8 +10,26 @@ router.post('/submit-score', async (req, res) => {
         res.status(200).send('Score saved successfully');
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error saving the score');
+        res.status(500).send(error);
     }
 });
+
+router.get('/check-team', async (req, res) => {
+    const { teamName } = req.query;
+
+    try {
+        const teamExists = await Score.exists({ teamName });
+
+        if (teamExists === null) {
+            res.status(500).json({ error: 'Error in database query' });
+        } else {
+            res.json({ exists: teamExists });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error});
+    }
+});
+
 
 module.exports = router;
