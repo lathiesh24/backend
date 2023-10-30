@@ -6,10 +6,13 @@ const port = 5000;
 const cors = require('cors');
 app.use(cors());
 
-
 app.use(express.json());
 
-const dbUrl = 'mongodb+srv://lathieshmahendran24:pass1234@cluster0.dgaocnb.mongodb.net/';
+// Load environment variables from .env file
+require('dotenv').config();
+
+// Access the MONGO_URI environment variable
+const dbUrl = process.env.MONGO_URI;
 
 mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
@@ -27,7 +30,7 @@ const teamRoutes = require('./routes/teamRoute');
 const scoreRoutes = require('./routes/scoreRoute');
 
 app.use('/api/teams', teamRoutes);
-app.use('/api/teams', scoreRoutes)
+app.use('/api/teams', scoreRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
