@@ -7,7 +7,7 @@ router.post('/submit-score', async (req, res) => {
     try {
         const newScore = new Score({ teamName, score });
         await newScore.save();
-        res.status(200).send('Score saved successfully');
+        res.status(201).send('Score saved successfully');
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
